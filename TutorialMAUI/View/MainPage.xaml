@@ -27,6 +27,14 @@
                         <Frame HeightRequest="125"
                                Padding="0"
                                Style="{StaticResource CardView}">
+                            <!-- Add the Gesture Recognizer-->
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeyViewModel}}, Path = GoToDetailsCommand}">
+                                                      <!--Changed the source to bind to here because the command we want to bind to is up the view model and no the monkey--> 
+
+                                </TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
                             <Grid Padding="0"
                                   ColumnDefinitions="125, *">
                                 <Image Aspect="AspectFill"

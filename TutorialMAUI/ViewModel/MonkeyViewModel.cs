@@ -3,12 +3,14 @@ using System.Diagnostics;
 using TutorialMAUI.Models;
 using TutorialMAUI.Services;
 using CommunityToolkit.Mvvm.Input;
+using TutorialMAUI.View;
 
 namespace TutorialMAUI.ViewModel;
 
 public partial class MonkeyViewModel: BaseViewModel
 {
     private MonkeyService _monkeyService;
+    private IConnectivity _connectivity;
 
     public MonkeyViewModel(MonkeyService monkeyService)
     {
@@ -18,6 +20,18 @@ public partial class MonkeyViewModel: BaseViewModel
     }
 
     public ObservableCollection<Monkey> Monkeys { get; set; }
+
+    [RelayCommand]
+    private async Task GoToDetailsAsync(Monkey monkey)
+    {
+        if (monkey is null)
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(DetailsPage)}",
+                                      animate: true,
+                                      new Dictionary<string, object>() { { "Monkey", monkey } });
+    }
+
 
     [RelayCommand]
     private async Task GetMonkeysAsync()

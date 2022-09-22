@@ -23,6 +23,11 @@ public static class MauiProgram
 		// register the page so that the shell can get it along with all of its dependencies i.e the page will use the viewmodel, which depends on the monkey service
         builder.Services.AddSingleton<MainPage>();
 
-		return builder.Build();
+        // Transient because we'll create a new details page for different monkeys everytime
+        builder.Services.AddTransient<DetailsPage>();
+
+
+
+        return builder.Build();
 	}
 }
