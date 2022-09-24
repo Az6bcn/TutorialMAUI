@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TutorialMAUI.Models;
 using TutorialMAUI.Services;
 using CommunityToolkit.Mvvm.Input;
@@ -26,6 +27,9 @@ public partial class MonkeyViewModel: BaseViewModel
     }
 
     public ObservableCollection<Monkey> Monkeys { get; set; }
+    
+    [ObservableProperty]
+    private bool isRefreshing;
 
     [RelayCommand]
     private async Task GoToDetailsAsync(Monkey monkey)
@@ -75,11 +79,12 @@ public partial class MonkeyViewModel: BaseViewModel
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
     }
 
     [RelayCommand]
-    async Task GetClosestMonkey()
+    private async Task GetClosestMonkey()
     {
         if (IsBusy || Monkeys.Count == 0)
             return;
