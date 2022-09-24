@@ -6,13 +6,16 @@
              xmlns:viewmodel="clr-namespace:TutorialMAUI.ViewModel"
              x:DataType="viewmodel:MonkeyViewModel"
              Title="{Binding Title}"
-             x:Class="TutorialMAUI.View.MainPage">
+             x:Class="TutorialMAUI.View.MainPage"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True">
     <!--associate this view to the Model and ViewModel by import their namespaces-->
     <!--set the dataType of this page to the MonkeyViewModel of the imported viewModel namespace because we already set this as the bindingContext in the code behind-->
     <!--we can now bind to the properties of this dataType, e.g set the page title by binding to the Title property ion the dataType-->
     <!--x:DataType:to get intellisense help-->
+    <!--ios: Progmatically sets the Safe Area on iOS-->
 
-    <Grid ColumnDefinitions="*, *"
+<Grid ColumnDefinitions="*, *"
           ColumnSpacing="5"
           RowDefinitions="*, Auto"
           RowSpacing="0">
@@ -67,6 +70,14 @@
                 Style="{StaticResource ButtonOutline}">
                 
         </Button>
+
+        <Button Text="Find Closest" 
+                Command="{Binding GetClosestMonkeyCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
 
         <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"
